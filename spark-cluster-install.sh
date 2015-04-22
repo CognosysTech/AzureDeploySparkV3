@@ -131,7 +131,7 @@ install_spark()
 	cd ../spark-1.2.1/
 	
 	# this will take quite a while
-	sudo sbt/sbt assembly
+	sudo sbt/sbt assembly 2>&1 1>buildlog.txt
 	 
 	cd ..
 	 
@@ -156,7 +156,7 @@ install_spark()
 	sudo chown -R spark:spark /usr/local/spark/
 	
 	# setting passwordless ssh for root also remove later
-        rm ~/.ssh/id_rsa 
+        rm -f ~/.ssh/id_rsa 
 	ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 #	ssh-keygen -t rsa -P ""
@@ -204,7 +204,9 @@ install_spark()
 	echo 'export SPARK_REPL_OPTS=" -Djava.io.tmpdir=/srv/spark/tmp/repl/\$USER "' >> spark-env.sh
 	echo 'export SPARK_APP_OPTS=" -Djava.io.tmpdir=/srv/spark/tmp/app/\$USER "' >> spark-env.sh
 	echo 'export PYSPARK_PYTHON="/usr/bin/python"' >> spark-env.sh
-	echo 'SPARK_PUBLIC_DNS="${MASTERIP}"' >> spark-env.sh
+	echo 'export SPARK_MASTER_IP="${MASTERIP}"' >> spark-env.sh
+	echo 'export SPARK_MASTER_PORT=7077' >> spark-env.sh
+	echo 'export SPARK_PUBLIC_DNS="${MASTERIP}"' >> spark-env.sh
 	echo 'export SPARK_WORKER_INSTANCES=${NUMBEROFSLAVES}' >> spark-env.sh
 	#=========================================================
 	 

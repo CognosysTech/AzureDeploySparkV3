@@ -128,7 +128,7 @@
         "tshirtSizeS": {
             "numberOfMasterInstances": 1,
 			"numberOfSlavesInstances" : 1,
-            "vmSize": "Standard_A3"
+            "vmSize": "Standard_A2"
         },
         "tshirtSizeM": {
             "numberOfMasterInstances": 1,
